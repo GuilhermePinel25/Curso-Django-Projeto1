@@ -10,4 +10,3 @@ def recipe(request, id):
         'name': 'Luiz Otávio',
     })
     
-print('apenas um teste')
