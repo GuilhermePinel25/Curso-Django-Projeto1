@@ -9,3 +9,5 @@ def recipe(request, id):
     return render(request, 'recipes/pages/home.html', context={
         'name': 'Luiz Otávio',
     })
+    
+print('apenas um teste')
