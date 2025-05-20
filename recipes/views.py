@@ -9,8 +9,5 @@ def recipe(request, id):
     return render(request, 'recipes/pages/recipe-view.html', context={
         'name': 'Luiz Otávio',
     })
-<<<<<<< HEAD
-=======
     
->>>>>>> aula-42-branch
     
