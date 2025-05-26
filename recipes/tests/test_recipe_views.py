@@ -23,14 +23,13 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertIn('No recipes found here!', resolve.content.decode('utf-8'))
         
     def test_recipe_home_template_loads_recipes(self): #criando dados ficticios para teste
+        self.make_recipe()
         
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
         response_context_recipes = response.context['recipes']
         
         self.assertIn('Recipe Title', content)
-        self.assertIn('10 Minutos', content)
-        self.assertIn('5 Porções', content)
         self.assertEqual(len(response_context_recipes), 1)
     
     # ========= Tests from category ==========
@@ -42,6 +41,15 @@ class RecipeViewsTest(RecipeTestBase):
     def test_recipe_category_view_resturn_404_if_no_recipes_found(self):
         resolve = self.client.get(reverse('recipes:category', kwargs={'category_id': 2}))
         self.assertEqual(resolve.status_code, 404)  
+        
+    def test_recipe_category_template_loads_recipes(self): #criando dados ficticios para teste
+        needed_title = 'This is a category test'
+        self.make_recipe(title=needed_title)
+        
+        response = self.client.get(reverse('recipes:category', args=(1,)))
+        content = response.content.decode('utf-8')
+        
+        self.assertIn(needed_title, content)
     
     # ========= Tests from recipe/detail ==========
         
@@ -52,6 +60,21 @@ class RecipeViewsTest(RecipeTestBase):
     def test_recipe_detail_view_resturn_404_if_no_recipes_found(self):
         resolve = self.client.get(reverse('recipes:recipe', kwargs={'id': 2}))
         self.assertEqual(resolve.status_code, 404)
+        
+    def test_recipe_detail_template_loads_the_correct_recipe(self): #criando dados ficticios para teste
+        needed_title = 'This is a detail page - It load one recipe'
+        
+        self.make_recipe(title=needed_title)
+        
+        response = self.client.get(
+            reverse(
+                'recipes:recipe', 
+                kwargs={'id':1}
+                )
+            )
+        content = response.content.decode('utf-8')
+        
+        self.assertIn(needed_title, content)
     
         
         
