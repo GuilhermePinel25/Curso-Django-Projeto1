@@ -5,6 +5,8 @@ from utils.recipes.factory import make_recipe
 
 from .models import Recipe, Category
 
+from django.http import Http404
+
 
 def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
@@ -33,5 +35,13 @@ def recipe(request, id):
         'recipe': recipe,   
         'is_detail_page': True,
     })
+    
+def search(request):
+    search_term = request.GET.get('q')
+    
+    if not search_term:
+        raise Http404()
+    
+    return render(request, 'recipes/pages/search.html')
     
     
