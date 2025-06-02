@@ -1,4 +1,4 @@
-{% extends 'global/base.html' %}
+{% extends 'global/base.html' %}More actions
 
 {% block title %}Register | {% endblock title %}
 
@@ -8,7 +8,7 @@
   </div>
 
   <div class="main-content container">
-    <form action="{% url "authors:create" %}" method="POST">
+    <form action="{% url 'authors:create' %}" method="POST">
       {% csrf_token %}
 
       <div class="form-content form-content-grid">
@@ -26,8 +26,10 @@
         {% endfor %}
       </div>
 
-      <div class="form-group">
-        <button type="submit">Send</button>
+      <div class="form-content form-content-grid">
+        <div class="form-group">
+          <button type="submit">Send</button>
+        </div>
       </div>
     </form>
   </div>
