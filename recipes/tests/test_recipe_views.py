@@ -82,11 +82,11 @@ class RecipeViewsTest(RecipeTestBase):
     # ========= Tests from recipe/detail ==========
         
     def test_recipe_detail_view_function_is_correct(self):
-        view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
-        self.assertIs(view.func, views.recipe)
+        view = resolve(reverse('recipes:recipe', kwargs={'pk': 1}))
+        self.assertIs(view.func.view_class, views.RecipeDetail)
         
     def test_recipe_detail_view_resturn_404_if_no_recipes_found(self):
-        resolve = self.client.get(reverse('recipes:recipe', kwargs={'id': 2}))
+        resolve = self.client.get(reverse('recipes:recipe', kwargs={'pk': 1000}))
         self.assertEqual(resolve.status_code, 404)
         
     def test_recipe_detail_template_loads_the_correct_recipe(self): #criando dados ficticios para teste
@@ -97,7 +97,7 @@ class RecipeViewsTest(RecipeTestBase):
         response = self.client.get(
             reverse(
                 'recipes:recipe', 
-                kwargs={'id':1}
+                kwargs={'pk':1}
                 )
             )
         content = response.content.decode('utf-8')
@@ -112,7 +112,7 @@ class RecipeViewsTest(RecipeTestBase):
         response = self.client.get(
             reverse(
                 'recipes:recipe', 
-                kwargs={'id':recipe.id}
+                kwargs={'pk':recipe.id}
                 )
             )
         
