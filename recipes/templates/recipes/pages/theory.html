@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theory</title>
+  <style>
+    :root {
+      --bg-color: #1c1c1c;
+      --text-color: #f2f2f2;
+      --accent-color: #ccc;
+      --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    p {
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: var(--accent-color);
+      margin: 1rem 0;
+    }
+
+    .glass-box {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 600px;
+      margin: 0.5rem 0;
+    }
+
+    .glass-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 0, 150, 0.3), transparent 40%),
+                  radial-gradient(circle at 70% 70%, rgba(0, 200, 255, 0.3), transparent 40%),
+                  radial-gradient(circle at 50% 50%, rgba(255, 255, 100, 0.2), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glass-box:hover::before {
+      opacity: 1;
+    }
+
+    .glass-box > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>Theory</h1>
+  <p>REALIZANDO TESTES.</p>
+
+  {% for recipe in recipes %}
+    <div class="glass-box">
+      <p>{{ recipe.id }} - {{ recipe.title }}</p>
+    </div>
+  {% endfor %}
+
+  <footer>&copy; 2025 Theory. Todos os direitos reservados.</footer>
+</body>
+</html>

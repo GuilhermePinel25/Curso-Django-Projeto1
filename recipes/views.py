@@ -3,12 +3,24 @@ import os
 from django.db.models import Q
 from django.http.response import Http404
 from django.views.generic import DetailView, ListView
-
 from utils.recipes.pagination import make_pagination
-
 from recipes.models import Recipe
+from django.shortcuts import render
 
 PER_PAGE = int(os.environ.get('PER_PAGE', 6))
+
+
+def theory(request,*args, **kwargs):
+    recipes = Recipe.objects.all()
+    
+    recipes = recipes.exclude(title__iexact='Título aleatório')
+    
+    context = {
+        'recipes':recipes
+        }
+      
+    
+    return render(request,'recipes/pages/theory.html', context=context)
 
 
 class RecipeListViewBase(ListView):
