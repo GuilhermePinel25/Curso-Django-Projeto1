@@ -451,6 +451,11 @@ a {
   margin: 1rem 0;
 }
 
+.hidden-text{
+  visibility: hidden;
+  opacity: 0;
+  display: none;
+}
 
 
 /* Generics */
